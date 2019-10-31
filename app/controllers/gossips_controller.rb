@@ -1,6 +1,6 @@
 class GossipsController < ApplicationController
   before_action :authenticate_user, except: [:index]
-  #before_action :right_user, only: [:edit, :update, :destroy]
+  before_action :right_user, only: [:edit, :update, :destroy]
   
   def index
     # Méthode qui récupère tous les potins et les envoie à la view index (index.html.erb) pour affichage
@@ -73,4 +73,13 @@ private
       flash[:danger] = "Please log in."
       redirect_to new_session_path
     end
+  end
+
+  def right_user
+    @gossip=Gossip.find(params[:id])
+    @user=User.find(@gossip.user_id)
+	 unless current_user == @user
+       flash[:danger] = "C'est pas ton gossip !"
+       redirect_to gossips_path 		
+	 end
   end
