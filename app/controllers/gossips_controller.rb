@@ -1,6 +1,6 @@
 class GossipsController < ApplicationController
-  before_action :authenticate_user, except: [:index, :show]
-  
+  before_action :authenticate_user, except: [:index]
+  #before_action :right_user, only: [:edit, :update, :destroy]
   
   def index
     # Méthode qui récupère tous les potins et les envoie à la view index (index.html.erb) pour affichage
