@@ -1,0 +1,45 @@
+<% if flash[:success] %>
+   <div class="alert alert-success" role="alert">
+   <h4 class="alert-heading">SUPER</h4>
+   <hr>
+   <div class=“success”><%= flash[:success]%></div>
+   </div>
+ <% end %>
+
+<br> <br><h2>PAGE POTIN </h2>
+
+<br>
+  <p> Voici le potin n° <%= @gossip.id%><br/><br>
+  L'auteur : <%= @gossip.user.first_name %><br/>
+  La ville de l'auteur : <%= @gossip.user.city.name %> <br> <br>
+  Le titre : <%= @gossip.title %><br/>
+  Créé le : <%= @gossip.created_at.strftime('%d/%m/%Y') %><br/>
+  Le contenu du potin : <%= @gossip.content %><br><br>
+
+  <%= link_to "Page de l'auteur", user_path(@gossip.user.id), class: "btn btn-primary" %> 
+    
+  <%= link_to "Editer le gossip", edit_gossip_path(@gossip.id), class: "btn btn-primary" %> 
+    
+
+  <a href= "<%= gossip_path(@gossip.id) %>" class="btn btn-danger" data-confirm="Êtes-vous sur de vouloir supprimer ce gossip ?"
+  data-method="DELETE">Supprimer le gossip</a><br /><br />
+
+  <h3>Commentaires : </h3><br>
+
+    <p> <% @gossip.comments.each do |comment|%>
+    <%= comment.user.first_name %> : <br> <%= comment.content %><br> <br>
+    <%end%>
+    </p>    
+    
+    
+ <h3>Ajouter un commentaire</h3>
+
+
+<form action= <%= root_path %> method="POST">
+<input type="hidden" name="authenticity_token" value=<%= form_authenticity_token %> >
+Commentaire : <input class="form-control" type="text" name="comment"><br />
+  <input type="submit" class="btn btn-primary" value="Envoyer">
+</form>
+  </p>
+
+

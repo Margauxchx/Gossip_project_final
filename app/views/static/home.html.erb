@@ -1,0 +1,35 @@
+
+<% if flash[:success] %>
+   <div class="alert alert-success" role="alert">
+   <h4 class="alert-heading">SUPER</h4>
+   <hr>
+   <div class=“success”><%= flash[:success]%></div>
+   </div>
+ <% end %>
+
+<div class="jumbotron">
+  <h1 class="display-4">Bienvenue à toi </h1><br>
+  <p class="lead">Sur ce site tu peux trouver des potins sur les membres de THP. </p>
+  <hr class="my-4">
+  <p>N'hésites pas à en rajouter si tu en as en reserve.</p>
+  <a href="<%= new_gossip_path %>" class="btn btn-primary"> Créer un potin </a>
+</div>
+
+
+
+<% Gossip.all.each do |gossip| %>
+
+<div class="card">
+  <div class="card-header">
+    POTIN n°<%= gossip.id %>
+  </div><br><br>
+  <div class="card-body">
+    <h5 class="card-title">L'auteur : <%=  gossip.user.first_name%></h5>
+    <p class="card-text">Le titre : <%=  gossip.title%></p>
+    <%= link_to "Détails du gossip", gossip_path(gossip.id), class: "btn btn-primary" %> <br><br>
+    
+    
+    
+  </div>
+</div>
+<% end %>
